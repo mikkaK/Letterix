@@ -1,8 +1,8 @@
 package ch.letterix.chatgpt.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ch.letterix.chatgpt.Entities.PromptObject;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -14,8 +14,8 @@ public class RequestController {
         this.requestHandler = requestHandler;
     }
 
-    @GetMapping("/hello")
-    public String hello() {
-        return requestHandler.handleHello("Hello");
+    @PostMapping("/application")
+    public String handleApplicationRequest(@RequestBody PromptObject promptObject) {
+            return requestHandler.handleApplicationRequest(promptObject);
     }
 }
