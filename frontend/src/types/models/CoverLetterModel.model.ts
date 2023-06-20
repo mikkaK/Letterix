@@ -1,5 +1,5 @@
 
-export type CoverLetter = {
+export type CoverLetterModel = {
     id: string;
     name: string;
     surname: string;
