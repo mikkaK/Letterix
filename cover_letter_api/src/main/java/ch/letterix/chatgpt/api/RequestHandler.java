@@ -1,16 +1,21 @@
 package ch.letterix.chatgpt.api;
 
 import ch.letterix.chatgpt.Entities.PromptObject;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.XSlf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
+import java.util.Objects;
 
 @Service
+@Log4j2
 public class RequestHandler implements RequestHandlerInterface{
     private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
     private final RestTemplate restTemplate = new RestTemplate();
@@ -19,11 +24,20 @@ public class RequestHandler implements RequestHandlerInterface{
 
     @Override
     public String handleApplicationRequest(PromptObject promptObject) {
+        log.info("Starting request to OpenAI API");
+
 
         String prompt = buildPrompt(promptObject);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+
+        if (!Objects.equals(apiKey, "notFound") || !Objects.equals(apiKey, "")){
+            log.info("API Key found");
+        } else {
+            log.error("API Key not found");
+        }
+
         headers.set("Authorization", "Bearer " + apiKey);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
 
@@ -31,12 +45,30 @@ public class RequestHandler implements RequestHandlerInterface{
 
         HttpEntity<?> request = new HttpEntity<>(requestJson, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(OPENAI_URL, request, String.class);
+        log.info("Request: " + requestJson);
 
+        ResponseEntity<String> response = restTemplate.postForEntity(OPENAI_URL, request, String.class);
+        log.info("Response: " + response.getBody() );
+        //todo parse response to ChatCompletion object
+
+        /*      ObjectMapper mapper = new ObjectMapper();
+            ChatCompletion chatCompletion = mapper.readValue(jsonString, ChatCompletion.class);
+*/
             return response.getBody();
     }
 
     public String buildPrompt(PromptObject promptObject){
+        log.debug("Started to build prompt with following attributes: " +
+                "\n name: " + promptObject.getName() +
+                ", \n surname: " + promptObject.getSurname() +
+                ", \n age: " + promptObject.getAge() +
+                ", \n currentEducationLevel: " + promptObject.getCurrentEducationLevel() +
+                ", \n interests: " + promptObject.getInterests() +
+                ", \n skills: " + promptObject.getSkills() +
+                ", \n weaknesses: " + promptObject.getWeaknesses() +
+                ", \n position: " + promptObject.getPosition() +
+                ", \n appliedCompany: " + promptObject.getAppliedCompany());
+
         return "Erstelle ein Bewerbungsschreiben für einen " +
                 promptObject.getAge()+
                 "jährigen Schweizer " +

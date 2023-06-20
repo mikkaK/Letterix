@@ -55,6 +55,23 @@ dependencies {
     // Flyway
     implementation "org.flywaydb:flyway-core:9.6.0"
 }
+task build_and_push {
+    group 'application'
+    description 'Pushes the built image to the docker registry'
+    doLast {
+        exec {
+            ignoreExitValue true
+            executable "docker"
+            args "build", "-t", "mikkak/letterix_backend:latest", "."
+        }
+        exec {
+            ignoreExitValue true
+            executable "docker"
+            args "push", "mikkak/letterix_backend:latest"
+        }
+    }
+}
+
 
 tasks.named('test') {
     useJUnitPlatform()

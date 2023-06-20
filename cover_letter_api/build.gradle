@@ -29,6 +29,23 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+task build_and_push {
+    group 'application'
+    description 'Pushes the built image to the docker registry'
+    doLast {
+        exec {
+            ignoreExitValue true
+            executable "docker"
+            args "build", "-t", "mikkak/letterix_cover_letter_api:latest", "."
+        }
+        exec {
+            ignoreExitValue true
+            executable "docker"
+            args "push", "mikkak/letterix_cover_letter_api:latest"
+        }
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
