@@ -4,6 +4,7 @@ import PrivateRoute from "./PrivateRoute";
 import HomePage from "../components/pages/HomePage";
 import UserTable from "../components/pages/UserPage/UserTable";
 import UserPage from "../components/pages/UserPage/UserPage";
+import CoverLetter from "../components/pages/CoverLetterPage/CoverLetterPage";
 
 /**
  * Router component renders a route switch with all available pages
@@ -23,6 +24,10 @@ const Router = () => {
         path={"/users"}
         element={<PrivateRoute authorities={[]} element={<UserTable />} />}
       />
+        <Route
+            path={"/coverletter"}
+            element={<CoverLetter/>}
+        />
       <Route
         path="/useredit"
         element={
