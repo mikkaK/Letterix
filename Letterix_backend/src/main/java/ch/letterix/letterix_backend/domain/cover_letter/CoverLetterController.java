@@ -1,4 +1,4 @@
-package ch.letterix.letterix_backend.api.cover_letter;
+package ch.letterix.letterix_backend.domain.cover_letter;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cover_letter")
 public class CoverLetterController {
     private final CoverLetterService coverLetterService;
-    private final CoverLetterRepository coverLetterRepository;
-    public CoverLetterController(CoverLetterService coverLetterService, CoverLetterRepository coverLetterRepository) {
+    public CoverLetterController(CoverLetterService coverLetterService) {
         this.coverLetterService = coverLetterService;
-        this.coverLetterRepository = coverLetterRepository;
     }
 
     @PostMapping("/")

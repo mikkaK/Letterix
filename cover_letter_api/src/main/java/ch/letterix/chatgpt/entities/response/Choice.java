@@ -1,4 +1,4 @@
-package ch.letterix.chatgpt.Entities.response;
+package ch.letterix.chatgpt.entities.response;
 
 import lombok.Getter;
 import lombok.Setter;

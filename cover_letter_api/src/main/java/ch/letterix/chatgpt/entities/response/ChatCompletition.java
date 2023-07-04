@@ -1,4 +1,4 @@
-package ch.letterix.letterix_backend.api.response;
+package ch.letterix.chatgpt.entities.response;
 
 
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ChatCompletition {
-    private String id;
     private String object;
     private long created;
     private String model;
@@ -15,8 +14,7 @@ public class ChatCompletition {
     private Choice[] choices;
 
     public ChatCompletition() {}
-    public ChatCompletition(String id, String object, long created, String model, Usage usage, Choice[] choices) {
-        this.id = id;
+    public ChatCompletition( String object, long created, String model, Usage usage, Choice[] choices) {
         this.object = object;
         this.created = created;
         this.model = model;

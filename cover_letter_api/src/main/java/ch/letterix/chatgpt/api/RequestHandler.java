@@ -1,10 +1,11 @@
 package ch.letterix.chatgpt.api;
 
-import ch.letterix.chatgpt.Entities.PromptObject;
+import ch.letterix.chatgpt.entities.PromptObject.PromptObject;
+import ch.letterix.chatgpt.entities.response.ChatCompletition;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.XSlf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.http.*;
@@ -23,7 +24,7 @@ public class RequestHandler implements RequestHandlerInterface{
     private String apiKey;
 
     @Override
-    public String handleApplicationRequest(PromptObject promptObject) {
+    public ChatCompletition handleApplicationRequest(PromptObject promptObject) throws JsonProcessingException {
         log.info("Starting request to OpenAI API");
 
 
@@ -34,6 +35,7 @@ public class RequestHandler implements RequestHandlerInterface{
 
         if (!Objects.equals(apiKey, "notFound") || !Objects.equals(apiKey, "")){
             log.info("API Key found");
+            log.info("API Key: " + apiKey);
         } else {
             log.error("API Key not found");
         }
@@ -49,12 +51,11 @@ public class RequestHandler implements RequestHandlerInterface{
 
         ResponseEntity<String> response = restTemplate.postForEntity(OPENAI_URL, request, String.class);
         log.info("Response: " + response.getBody() );
-        //todo parse response to ChatCompletion object
 
-        /*      ObjectMapper mapper = new ObjectMapper();
-            ChatCompletion chatCompletion = mapper.readValue(jsonString, ChatCompletion.class);
-*/
-            return response.getBody();
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        return mapper.readValue(response.getBody(), ChatCompletition.class);
+
     }
 
     public String buildPrompt(PromptObject promptObject){

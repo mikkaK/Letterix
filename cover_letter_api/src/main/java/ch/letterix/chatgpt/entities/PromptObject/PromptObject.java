@@ -1,4 +1,4 @@
-package ch.letterix.chatgpt.Entities;
+package ch.letterix.chatgpt.entities.PromptObject;
 
 import java.util.List;
 

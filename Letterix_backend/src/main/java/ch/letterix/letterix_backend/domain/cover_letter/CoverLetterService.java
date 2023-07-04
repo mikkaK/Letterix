@@ -1,4 +1,4 @@
-package ch.letterix.letterix_backend.api.cover_letter;
+package ch.letterix.letterix_backend.domain.cover_letter;
 
 import ch.letterix.letterix_backend.core.generic.AbstractService;
 
