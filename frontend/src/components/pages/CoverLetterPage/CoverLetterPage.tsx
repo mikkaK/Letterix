@@ -1,9 +1,9 @@
-import {Button, FormControl, FormLabel, Grid, TextField, Box} from "@mui/material";
+import {Button, FormControl, Grid, TextField, Box} from "@mui/material";
 import { useFormik } from "formik";
 import {CoverLetterModel} from "../../../types/models/CoverLetterModel.model";
 
 
-export const initialCoverLetterValues: CoverLetterModel = {
+export const initialCoverLetterValues: any = {
     id: '',
     name: '',
     surname: '',
@@ -11,19 +11,22 @@ export const initialCoverLetterValues: CoverLetterModel = {
     appliedCompany: '',
     position: '',
     currentEducationLevel: '',
-    skills: [],
-    interests: [],
-    weaknesses: [],
+    skills: '',
+    interests: '',
+    weaknesses: '',
 };
 
 const CoverLetter = () => {
     const formik = useFormik({
         initialValues: initialCoverLetterValues,
         onSubmit: (values) => {
-            // Handle form submission
-            console.log(values);
+            const coverLetter = values as CoverLetterModel;
+            coverLetter.skills = values.skills.split(',');
+            coverLetter.weaknesses =values.weaknesses.split(',');
+            coverLetter.interests = values.interests.split(',');
         },
     });
+
     return (
         <Box sx={{ justifyContent: "center", marginLeft: 2, display: "block" }}>
         <form onSubmit={formik.handleSubmit}>
@@ -33,45 +36,56 @@ const CoverLetter = () => {
                         Create cover letter
                     </h1>
                 </Grid>
-                <Grid xs={12}>
+                <Grid xs={12} sx={{marginBottom: 3}}>
                     <FormControl>
-                        <FormLabel>Enter name</FormLabel>
-                        <TextField></TextField>
+                        <TextField value={formik.values.name} label="Name" name="name" onChange={formik.handleChange}></TextField>
                     </FormControl>
                 </Grid>
-                <Grid xs={12}>
+                <Grid xs={12} sx={{marginBottom: 3}}>
                     <FormControl>
-                        <FormLabel>Enter surname</FormLabel>
-                        <TextField></TextField>
+                        <TextField value={formik.values.surname} label="Surname" name="surname" onChange={formik.handleChange}></TextField>
                     </FormControl>
                 </Grid>
-                <Grid xs={12}>
+                <Grid xs={12} sx={{marginBottom: 3}}>
                     <FormControl>
-                        <FormLabel>Enter age</FormLabel>
                         <TextField
                             type="number"
+                            value={formik.values.age}
+                            label="Age" name="age"  onChange={formik.handleChange}
                         ></TextField>
                     </FormControl>
                 </Grid>
-                <Grid xs={12}>
+                <Grid xs={12} sx={{marginBottom: 3}}>
                     <FormControl>
-                        <FormLabel>Enter company to apply to</FormLabel>
-                        <TextField></TextField>
+                        <TextField value={formik.values.appliedCompany} label="Applying company" name="appliedCompany"  onChange={formik.handleChange}></TextField>
                     </FormControl>
                 </Grid>
-                <Grid xs={12}>
+                <Grid xs={12} sx={{marginBottom: 3}}>
                     <FormControl>
-                        <FormLabel>Enter position you're applying to</FormLabel>
-                        <TextField></TextField>
+                        <TextField value={formik.values.position}  label="Applying position" name="position"  onChange={formik.handleChange}></TextField>
                     </FormControl>
                 </Grid>
-                <Grid xs={12}>
+                <Grid xs={12} sx={{marginBottom: 3}}>
                     <FormControl>
-                        <FormLabel>Enter current education level</FormLabel>
-                        <TextField></TextField>
+                        <TextField value={formik.values.currentEducationLevel} label="Education level" name="currentEducationLevel"  onChange={formik.handleChange}></TextField>
                     </FormControl>
                 </Grid>
-                <Button>Submit</Button>
+                <Grid xs={12} sx={{marginBottom: 3}}>
+                    <FormControl>
+                        <TextField value={formik.values.skills} label="Skills" name="skills"  onChange={formik.handleChange}></TextField>
+                    </FormControl>
+                </Grid>
+                <Grid xs={12} sx={{marginBottom: 3}}>
+                    <FormControl>
+                        <TextField value={formik.values.interests} label="Interests" name="interests"  onChange={formik.handleChange}></TextField>
+                    </FormControl>
+                </Grid>
+                <Grid xs={12} sx={{marginBottom: 3}}>
+                    <FormControl>
+                        <TextField value={formik.values.weaknesses} label="Weaknesses" name="weaknesses"  onChange={formik.handleChange}></TextField>
+                    </FormControl>
+                </Grid>
+                <Button type="submit" variant="contained" size="large">Submit</Button>
             </Grid>
         </form>
         </Box>
