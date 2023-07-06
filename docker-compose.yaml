@@ -7,7 +7,7 @@ services:
     env_file:
       - cover_letter_api/.env
     ports:
-      - "8081:8080"
+      - "8081:8081"
     volumes:
       - ./src:/app/src
     

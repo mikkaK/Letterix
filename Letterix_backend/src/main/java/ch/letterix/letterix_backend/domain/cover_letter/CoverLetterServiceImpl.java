@@ -59,6 +59,7 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
         ChatCompletition completition = mapper.convertValue(response.getBody(), ChatCompletition.class);
         saveStorageObject(completition, SavedCoverLetter);
         return response.toString();
+
     }
 
     public CoverLetter saveCoverLetter (CoverLetter coverLetter){
