@@ -2,7 +2,6 @@ package ch.letterix.letterix_backend.domain.storage_object;
 
 import ch.letterix.letterix_backend.core.generic.AbstractEntity;
 import ch.letterix.letterix_backend.domain.cover_letter.CoverLetter;
-import ch.letterix.letterix_backend.entities.prompt_object.PromptObject;
 import ch.letterix.letterix_backend.entities.response.ChatCompletition;
 import jakarta.persistence.*;
 

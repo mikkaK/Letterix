@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 @Embeddable
 public class Usage {
-    private int promptTokens;
-    private int completionTokens;
-    private int totalTokens;
+    private int prompt_tokens;
+    private int completion_tokens;
+    private int total_tokens;
     public Usage() {
     }
 
-    public Usage(int promptTokens, int completionTokens, int totalTokens) {
-        this.promptTokens = promptTokens;
-        this.completionTokens = completionTokens;
-        this.totalTokens = totalTokens;
+    public Usage(int prompt_tokens, int completion_tokens, int total_tokens) {
+        this.prompt_tokens = prompt_tokens;
+        this.completion_tokens = completion_tokens;
+        this.total_tokens = total_tokens;
     }
 }

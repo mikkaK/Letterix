@@ -1,22 +1,23 @@
 package ch.letterix.letterix_backend.entities.response;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@Embeddable
 public class Choice {
-    private Message message;
-    private String finishReason;
     private int index;
+    private Message message;
+    private String finish_reason;
+
     public Choice() {
     }
 
-    public Choice(Message message, String finishReason, int index) {
-        this.message = message;
-        this.finishReason = finishReason;
+    public Choice(int index, Message message, String finish_reason) {
         this.index = index;
+        this.message = message;
+        this.finish_reason = finish_reason;
     }
 }

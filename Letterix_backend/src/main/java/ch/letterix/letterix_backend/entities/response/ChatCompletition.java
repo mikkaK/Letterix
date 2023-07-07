@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -16,14 +18,12 @@ public class ChatCompletition extends AbstractEntity{
     private String object;
     private long created;
     private String model;
-    @Embedded
     private Usage usage;
-    @Embedded
-    private Choice[] choices;
+    private List<Choice> choices;
 
     public ChatCompletition() {}
 
-    public ChatCompletition(UUID id, String object, long created, String model, Usage usage, Choice[] choices) {
+    public ChatCompletition(UUID id, String object, long created, String model, Usage usage, List<Choice> choices) {
         super(id);
         this.object = object;
         this.created = created;

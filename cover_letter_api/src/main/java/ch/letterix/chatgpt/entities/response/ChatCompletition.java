@@ -10,15 +10,17 @@ public class ChatCompletition {
     private String object;
     private long created;
     private String model;
-    private Usage usage;
     private Choice[] choices;
+    private Usage usage;
+
 
     public ChatCompletition() {}
-    public ChatCompletition( String object, long created, String model, Usage usage, Choice[] choices) {
+
+    public ChatCompletition(String object, long created, String model, Choice[] choices, Usage usage) {
         this.object = object;
         this.created = created;
         this.model = model;
-        this.usage = usage;
         this.choices = choices;
+        this.usage = usage;
     }
 }

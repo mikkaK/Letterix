@@ -5,6 +5,8 @@ import ch.letterix.letterix_backend.core.generic.AbstractServiceImpl;
 import ch.letterix.letterix_backend.domain.storage_object.StorageObject;
 import ch.letterix.letterix_backend.domain.storage_object.StorageObjectService;
 import ch.letterix.letterix_backend.entities.response.ChatCompletition;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +28,7 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
     private String COVER_LETTER_API_URL;
     private final CoverLetterRepository coverLetterRepository;
     private final StorageObjectService storageObjectService;
-    ObjectMapper mapper = new ObjectMapper();
+    ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     protected CoverLetterServiceImpl(AbstractRepository<CoverLetter> repository, CoverLetterRepository coverLetterRepository, StorageObjectService storageObjectService) {
         super(repository);
         this.coverLetterRepository = coverLetterRepository;
@@ -34,7 +36,7 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
     }
 
     @Override
-    public String getCoverLetter(CoverLetter coverLetter) {
+    public String getCoverLetter(CoverLetter coverLetter)  {
 
         CoverLetter SavedCoverLetter = saveCoverLetter(coverLetter);
 
@@ -56,8 +58,14 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
         log.info("Request: " + requestBody);
 
         ResponseEntity<String> response = restTemplate.postForEntity(COVER_LETTER_API_URL, request, String.class);
-        ChatCompletition completition = mapper.convertValue(response.getBody(), ChatCompletition.class);
-        saveStorageObject(completition, SavedCoverLetter);
+        try {
+            log.info("Response: " + response.getBody());
+            ChatCompletition completition = mapper.readValue(response.getBody(), ChatCompletition.class);
+            saveStorageObject(completition, SavedCoverLetter);
+        }catch (Exception e){
+            log.error("Error while parsing response body to ChatCompletition object" + e.getMessage());
+        }
+
         return response.toString();
 
     }

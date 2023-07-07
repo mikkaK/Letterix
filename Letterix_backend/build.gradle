@@ -72,6 +72,33 @@ task build_and_push {
     }
 }
 
+def readEnvironmentFileIfExists(String envFilename) {
+    def envVars = [:]
+    def envFile = file(envFilename)
+    if (envFile.exists()) {
+        envFile.readLines().each {
+            if (it != "" && it.charAt(0) != (char) '#') {
+                def (key, value) = it.tokenize("=")
+                key = key.toString()
+                value = value.toString()
+                if (System.getenv(key) == null) {
+                    envVars[key] = value
+                }
+            }
+        }
+    }
+
+    return envVars
+}
+
+tasks.withType(JavaExec) { javaExec ->
+    doFirst {
+        def envVars = readEnvironmentFileIfExists(".env")
+        for (envVar in envVars) {
+            environment(envVar.key, envVar.value)
+        }
+    }
+}
 
 tasks.named('test') {
     useJUnitPlatform()
