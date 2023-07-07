@@ -4,4 +4,4 @@ spring:
   config:
     import: "optional:configserver:http://localhost:8088"
 letterix:
-  OPENAI_API_KEY: ${OPENAI_API_KEY:notFound}
+  OPENAI_API_KEY: ${$OPENAI_API_KEY:notFound}
