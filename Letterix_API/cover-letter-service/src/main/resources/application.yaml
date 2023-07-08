@@ -3,5 +3,3 @@ spring:
     name: cover-letter-service
   config:
     import: "optional:configserver:http://localhost:8088"
-letterix:
-  OPENAI_API_KEY: ${$OPENAI_API_KEY:notFound}

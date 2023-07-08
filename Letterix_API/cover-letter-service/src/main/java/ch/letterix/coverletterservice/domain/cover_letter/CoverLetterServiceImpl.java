@@ -2,11 +2,13 @@ package ch.letterix.coverletterservice.domain.cover_letter;
 
 import ch.letterix.coverletterservice.core.generic.AbstractRepository;
 import ch.letterix.coverletterservice.core.generic.AbstractServiceImpl;
+import ch.letterix.coverletterservice.domain.response.ChatCompletionService;
 import ch.letterix.coverletterservice.domain.response.entity.ChatCompletion;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,29 +23,32 @@ import java.util.Objects;
 @Service
 @Log4j2
 public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> implements CoverLetterService {
-    private final RestTemplate restTemplate = new RestTemplate();
-    private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
 
     @Value("${letterix.OPENAI_API_KEY}")
     private String OPENAI_API_KEY;
+    private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
+    private final RestTemplate restTemplate = new RestTemplate();
     private final CoverLetterRepository coverLetterRepository;
-    protected CoverLetterServiceImpl(AbstractRepository<CoverLetter> repository, CoverLetterRepository coverLetterRepository) {
+    private final ChatCompletionService chatCompletionService;
+    @Autowired
+    protected CoverLetterServiceImpl(AbstractRepository<CoverLetter> repository, CoverLetterRepository coverLetterRepository, ChatCompletionService chatCompletionService) {
         super(repository);
         this.coverLetterRepository = coverLetterRepository;
+        this.chatCompletionService = chatCompletionService;
     }
 
     @Override
     public ChatCompletion getCoverLetter(CoverLetter coverLetter) throws JsonProcessingException {
-        saveCoverLetter(coverLetter);
+        CoverLetter savedCoverLetter = saveCoverLetter(coverLetter);
 
         String prompt = buildPrompt(coverLetter);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        if (!Objects.equals(OPENAI_API_KEY, "notFound") || !Objects.equals(OPENAI_API_KEY, "")){
-            log.info("API Key found");
-            log.info("API Key: " + OPENAI_API_KEY);
+        if (!Objects.equals(OPENAI_API_KEY.toLowerCase(), "notFound".toLowerCase())){
+            log.debug("API Key found");
+            log.debug("API Key: " + OPENAI_API_KEY);
         } else {
             log.error("API Key not found");
         }
@@ -55,18 +60,20 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
 
         HttpEntity<?> request = new HttpEntity<>(requestJson, headers);
 
-        log.info("Request: " + requestJson);
+        log.debug("Request: " + requestJson);
 
         ResponseEntity<String> response = restTemplate.postForEntity(OPENAI_URL, request, String.class);
-        log.info("Response: " + response.getBody() );
+        log.debug("Response: " + response.getBody() );
 
-        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-        return mapper.readValue(response.getBody(), ChatCompletion.class);
+        ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        ChatCompletion completion = mapper.readValue(response.getBody(), ChatCompletion.class);
+        completion.setCoverLetter(savedCoverLetter);
+        return chatCompletionService.save(completion);
     }
 
-    public void saveCoverLetter (CoverLetter coverLetter){
-        coverLetterRepository.save(coverLetter);
+    public CoverLetter saveCoverLetter (CoverLetter coverLetter){
+
+        return coverLetterRepository.save(coverLetter);
     }
 
     public String buildPrompt(CoverLetter promptObject){

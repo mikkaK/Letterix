@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -47,7 +46,7 @@ public class CustomGlobalExceptionHandler {
                               .build();
   }
 
-  @ExceptionHandler({UsernameNotFoundException.class})
+  /*@ExceptionHandler({UsernameNotFoundException.class})
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   public ResponseError handleUsernameNotFound(Throwable e) {
     Map<String, String> errors = new HashMap<>();
@@ -55,7 +54,7 @@ public class CustomGlobalExceptionHandler {
     return new ResponseError().setTimeStamp(LocalDate.now())
                               .setErrors(errors)
                               .build();
-  }
+  }*/
 
   @ExceptionHandler({HttpMessageNotReadableException.class})
   @ResponseStatus(value = HttpStatus.BAD_REQUEST)

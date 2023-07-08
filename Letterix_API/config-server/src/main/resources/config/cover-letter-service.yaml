@@ -5,3 +5,19 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:letterix}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:letterix}
+    user: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+letterix:
+  OPENAI_API_KEY: ${OPENAI_API_KEY:notFound}

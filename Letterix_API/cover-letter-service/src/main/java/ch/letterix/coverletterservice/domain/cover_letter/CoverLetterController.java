@@ -2,6 +2,7 @@ package ch.letterix.coverletterservice.domain.cover_letter;
 
 import ch.letterix.coverletterservice.domain.response.entity.ChatCompletion;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class CoverLetterController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ChatCompletion> newCoverLetter(@RequestBody CoverLetter coverLetter) throws JsonProcessingException {
+    public ResponseEntity<ChatCompletion> newCoverLetter(@Valid @RequestBody CoverLetter coverLetter) throws JsonProcessingException {
         return new ResponseEntity<>(coverLetterService.getCoverLetter(coverLetter), HttpStatus.CREATED);
     }
 }
