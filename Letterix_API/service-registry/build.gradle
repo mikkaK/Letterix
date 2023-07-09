@@ -34,3 +34,46 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+tasks.register('build_and_push') {
+	group 'application'
+	description 'Builds and pushed docker image'
+	doLast {
+		exec {
+			executable "docker"
+			args "build", "-t", "registry.alasfood.ch/letterix_service_registry", "."
+		}
+		exec {
+			executable "docker"
+			args "tag", "registry.alasfood.ch/letterix_service_registry", "registry.alasfood.ch/letterix_service_registry:latest"
+		}
+		exec {
+			executable "docker"
+			args "push", "registry.alasfood.ch/letterix_service_registry:latest"
+		}
+	}
+}
+tasks.register('build_image') {
+	group 'application'
+	description 'Builds docker image'
+	doLast {
+		exec {
+			executable "docker"
+			args "build", "-t", "registry.alasfood.ch/letterix_service_registry", "."
+		}
+	}
+}
+tasks.register('push_image') {
+	group 'application'
+	description 'Pushes docker image'
+	doLast {
+		exec {
+			executable "docker"
+			args "tag", "registry.alasfood.ch/letterix_service_registry", "registry.alasfood.ch/letterix_service_registry:latest"
+		}
+		exec {
+			executable "docker"
+			args "push", "registry.alasfood.ch/letterix_service_registry:latest"
+		}
+	}
+}

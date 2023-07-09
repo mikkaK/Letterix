@@ -73,3 +73,45 @@ tasks.withType(JavaExec) { javaExec ->
 		}
 	}
 }
+tasks.register('build_and_push') {
+	group 'application'
+	description 'Builds and pushed docker image'
+	doLast {
+		exec {
+			executable "docker"
+			args "build", "-t", "registry.alasfood.ch/letterix_cover-letter_service", "."
+		}
+		exec {
+			executable "docker"
+			args "tag", "registry.alasfood.ch/letterix_cover-letter_service", "registry.alasfood.ch/letterix_cover-letter_service:latest"
+		}
+		exec {
+			executable "docker"
+			args "push", "registry.alasfood.ch/letterix_cover-letter_service:latest"
+		}
+	}
+}
+tasks.register('build_image') {
+	group 'application'
+	description 'Builds docker image'
+	doLast {
+		exec {
+			executable "docker"
+			args "build", "-t", "registry.alasfood.ch/letterix_cover-letter_service", "."
+		}
+	}
+}
+tasks.register('push_image') {
+	group 'application'
+	description 'Pushes docker image'
+	doLast {
+		exec {
+			executable "docker"
+			args "tag", "registry.alasfood.ch/letterix_cover-letter_service", "registry.alasfood.ch/letterix_cover-letter_service:latest"
+		}
+		exec {
+			executable "docker"
+			args "push", "registry.alasfood.ch/letterix_cover-letter_service:latest"
+		}
+	}
+}

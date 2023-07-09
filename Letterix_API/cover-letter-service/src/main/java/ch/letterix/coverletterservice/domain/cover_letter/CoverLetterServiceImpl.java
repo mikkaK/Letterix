@@ -65,6 +65,7 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
         ResponseEntity<String> response = restTemplate.postForEntity(OPENAI_URL, request, String.class);
         log.debug("Response: " + response.getBody() );
 
+        //TODO handle openAI service 503 not available
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         ChatCompletion completion = mapper.readValue(response.getBody(), ChatCompletion.class);
         completion.setCoverLetter(savedCoverLetter);
