@@ -156,7 +156,8 @@ export const ActiveUserContextProvider = ({
         })
       : null;
     // eslint-disable-next-line no-empty-pattern
-  },[];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  };
 
   function activeUserHasRole(roleToCheck: keyof typeof roles): boolean {
     return user ? user.roles.some((role) => role.name === roleToCheck) : false;
