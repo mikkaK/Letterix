@@ -38,3 +38,5 @@ Letterix_API/config-server/.env
 *.env
 *.eslintcache
 *.jpb
+*/build/*
+*/db_data/*
