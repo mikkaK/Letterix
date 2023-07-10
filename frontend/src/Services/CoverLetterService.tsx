@@ -1,8 +1,8 @@
 import api from '../config/Api';
-import { CoverLetter } from '../types/models/CoverLetter.model';
+import { CoverLetterModel } from '../types/models/CoverLetterModel.model';
 
 const CoverLetterService = {
-    addCoverLetter: (coverLetter: CoverLetter) => {
+    addCoverLetter: (coverLetter: CoverLetterModel) => {
         return api.post('/coverLetter/', coverLetter).then((res) => {
             return res.data;
         });
