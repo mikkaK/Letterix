@@ -36,3 +36,4 @@ gradlew
 gradlew.bat
 Letterix_API/config-server/.env
 *.env
+*.eslintcache
