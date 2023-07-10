@@ -75,9 +75,11 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
+        working-directory: ./frontend
         run: yarn install
 
       - name: Build the application
+        working-directory: ./frontend
         run: yarn build .
 
       - name: Archive build artifacts
