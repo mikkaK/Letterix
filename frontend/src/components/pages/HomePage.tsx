@@ -2,7 +2,7 @@ import { Box, flexbox } from '@mui/system';
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import './ClickableText.css';
-import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import CreateIcon from '@mui/icons-material/Create';
 
 export default function HomePage() {
   const history = useNavigate();
@@ -18,9 +18,9 @@ export default function HomePage() {
   return (
       <Box onClick={handleClick} style={{alignItems:"center", height: "100%"}}>
       <div className={`icon-container ${expand ? 'expand' : ''}`}>
-        <PlayCircleOutlineIcon sx={{fontSize:"10rem", color: "#05386B"}}/>
+        <CreateIcon sx={{fontSize:"10rem", color: "#05386B"}}/>
       </div>
-          <h3 style={{color: "#05386B", fontSize: "3rem", marginTop: "12rem", marginLeft:"31%"}}>Start creating your cover letter!</h3>
+          <h3 style={{color: "#05386B", fontSize: "3rem", marginTop: "12rem", marginLeft:"26%"}}>Click the pencil to create a cover letter!</h3>
       </Box>
   );
 }

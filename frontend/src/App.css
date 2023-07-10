@@ -16,7 +16,7 @@
 }
 
 .app-header {
-  padding-left: 20px;
+
   display: flex;
   align-items: center;
   position: relative;
@@ -30,15 +30,19 @@
   background-image: url("images/307eabba-f9d5-4aac-91cf-13cb21d1fa12.jpg");
   background-size: cover;
   background-position: center;
-  opacity: 0.5; /* Adjust the opacity as desired */
+  opacity: 0.4; /* Adjust the opacity as desired */
 }
 .app-name {
+  margin-left: 43%;
   position: relative;
   z-index: 1; /* Ensure the text appears above the background image */
   font-weight: bold;
   color: #05386B; /* Set the desired color for the text */
-  font-family: Cinzel, cursive;
-  font-size: 50px;
+  font-size: 70px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  background-color: transparent;
+  text-decoration: none;
 }
 
 .App-link {
