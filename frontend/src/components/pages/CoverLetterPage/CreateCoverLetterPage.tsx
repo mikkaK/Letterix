@@ -4,6 +4,9 @@ import {CoverLetterModel} from "../../../types/models/CoverLetterModel.model";
 import {useNavigate} from "react-router-dom";
 import CoverLetterForm from "../../organisms/CoverLetterForm";
 import GeneralBox from "../../molecules/GeneralBox";
+import CoverLetterService from "../../../Services/CoverLetterService";
+import {useState} from "react";
+import {ChatCompletionModel} from "../../../types/models/ChatCompletion.model";
 
 
 export const initialCoverLetterValues: any = {
@@ -21,7 +24,6 @@ export const initialCoverLetterValues: any = {
 
 const CoverLetter = () => {
     const navigate = useNavigate();
-
     const formik = useFormik({
         initialValues: initialCoverLetterValues,
         onSubmit: (values) => {
@@ -29,7 +31,9 @@ const CoverLetter = () => {
             coverLetter.skills = values.skills.split(',');
             coverLetter.weaknesses =values.weaknesses.split(',');
             coverLetter.interests = values.interests.split(',');
-            navigate("/generatedCoverLetter");
+            CoverLetterService.addCoverLetter(coverLetter).then((res) => {
+                navigate("/generatedCoverLetter/"+res.data);
+            });
         },
     });
 

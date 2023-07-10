@@ -3,7 +3,7 @@ import { CoverLetterModel } from '../types/models/CoverLetterModel.model';
 
 const CoverLetterService = {
     addCoverLetter: (coverLetter: CoverLetterModel) => {
-        return api.post('/coverLetter/', coverLetter).then((res) => {
+        return api.post('/cover-letter', coverLetter).then((res) => {
             return res.data;
         });
     },
