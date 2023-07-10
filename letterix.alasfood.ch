@@ -9,7 +9,7 @@ server {
     server_name letterix.alasfood.ch www.letterix.alasfood.ch;
 
     location / {
-        proxy_pass http://localhost:3235/;
+        proxy_pass http://localhost:3141/;
     }
     location /api/ {
         proxy_pass http://localhost:8060/;
