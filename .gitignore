@@ -29,3 +29,10 @@ replay_pid*
 dist/
 
 */.idea 
+.idea/*
+.idea/
+*.DS_Store
+gradlew
+gradlew.bat
+Letterix_API/config-server/.env
+*.env
