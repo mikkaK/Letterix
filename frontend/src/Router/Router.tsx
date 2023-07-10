@@ -30,7 +30,7 @@ const Router = () => {
             element={<CreateCoverLetter/>}
         />
         <Route
-            path={"/generatedCoverLetter"}
+            path={"/generatedCoverLetter/:chatGptResponse"}
             element={<GeneratedCoverLetterPage/>}
         />
       <Route
