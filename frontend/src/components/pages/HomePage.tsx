@@ -1,21 +1,26 @@
 import { Box, flexbox } from '@mui/system';
-import logo from '../../logo1.png';
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import './ClickableText.css';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 
 export default function HomePage() {
+  const history = useNavigate();
+  const [expand, setExpand] = useState(false);
+
+  const handleClick = () => {
+    setExpand(true);
+    setTimeout(() => {
+      history('/createCoverLetter');
+    }, 300); // Change the duration as needed
+
+  };
   return (
-    <Box
-      display='flex'
-      alignItems='center'
-      justifyContent='center'
-      flexDirection={'column'}
-    >
-      <h1>Welcome to the Homepage</h1>
-      <img
-        src={logo}
-        style={{ filter: 'invert(100%)' }}
-        className='App-logo'
-        alt='logo'
-      />
-    </Box>
+      <Box onClick={handleClick} style={{alignItems:"center", height: "100%"}}>
+      <div className={`icon-container ${expand ? 'expand' : ''}`}>
+        <PlayCircleOutlineIcon sx={{fontSize:"10rem", color: "#05386B"}}/>
+      </div>
+          <h3 style={{color: "#05386B", fontSize: "3rem", marginTop: "12rem", marginLeft:"31%"}}>Start creating your cover letter!</h3>
+      </Box>
   );
 }

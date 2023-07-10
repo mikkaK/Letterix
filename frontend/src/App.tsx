@@ -8,7 +8,13 @@ import Router from './Router/Router';
 function App() {
   return (
     <ActiveUserContextProvider>
-      <Router />
+        <header className="app-header">
+            <div className="header-image"></div>
+            <h1 className="app-name">Letterix</h1>
+        </header>
+        <div className="app-background">
+            <Router />
+        </div>
     </ActiveUserContextProvider>
   );
 }
