@@ -97,7 +97,7 @@ jobs:
   deploy:
     name: deploy to server
     runs-on: ubuntu-latest
-    needs: builMicroservices
+    needs: {builMicroservices, buildFrontend}
     steps:
     - name: deploy on server
       uses: appleboy/ssh-action@master
