@@ -1,12 +1,10 @@
-import {Button, FormControl, Grid, TextField, Box} from "@mui/material";
 import { useFormik } from "formik";
 import {CoverLetterModel} from "../../../types/models/CoverLetterModel.model";
 import {useNavigate} from "react-router-dom";
 import CoverLetterForm from "../../organisms/CoverLetterForm";
 import GeneralBox from "../../molecules/GeneralBox";
 import CoverLetterService from "../../../Services/CoverLetterService";
-import {useState} from "react";
-import {ChatCompletionModel} from "../../../types/models/ChatCompletion.model";
+
 
 
 export const initialCoverLetterValues: any = {

@@ -144,6 +144,7 @@ export const ActiveUserContextProvider = ({
     return false;
   };
 
+  // @ts-ignore
   /**
    * Request the user data for the currently active user from the api
    * and save it to the context-state.
@@ -154,7 +155,8 @@ export const ActiveUserContextProvider = ({
           setActiveUser(res);
         })
       : null;
-  };
+    // eslint-disable-next-line no-empty-pattern
+  },[];
 
   function activeUserHasRole(roleToCheck: keyof typeof roles): boolean {
     return user ? user.roles.some((role) => role.name === roleToCheck) : false;
