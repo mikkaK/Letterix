@@ -1,32 +1,76 @@
 version: "3.8"
 
 services:
-  cover_letter_api:
-    image: mikkak/letterix_cover_letter_api:latest
-    container_name: cover_letter_api
-    env_file:
-      - cover_letter_api/.env
-    ports:
-      - "8081:8080"
-    volumes:
-      - ./src:/app/src
-    
   letterix_db:
     image: postgres:latest
     container_name: letterix_db
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: letterix
+    networks:
+      - backend
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
 
-  letterix_backend:
-    image: mikkak/letterix_backend:latest
-    container_name: letterix_backend
+  letterix_config_server:
+    image: registry.alasfood.ch/letterix_config_server:latest
+    container_name: config_server
+    restart: unless-stopped
     env_file:
-      - letterix_backend/.env
-    ports:
-      - "8080:8080"
+      - .env
+    networks:
+      backend:
+        aliases:
+          - configserver
+
+  letterix_service_registry:
+    image: registry.alasfood.ch/letterix_service_registry:latest
+    container_name: service_registry
+    restart: unless-stopped
     depends_on:
-      - letterix_db
+      - letterix_config_server
+    env_file:
+      - .env
+    networks:
+      backend:
+        aliases:
+          - serviceregistry
+
+  letterix_api_gateway:
+    image: registry.alasfood.ch/letterix_api_gateway:latest
+    container_name: api_gateway
+    restart: unless-stopped
+    ports:
+      - "8060:8060"
+    depends_on:
+      - letterix_service_registry
+    env_file:
+      - .env
+    networks:
+      backend:
+        aliases:
+          - apigateway
+      frontend:
+        aliases:
+          - apigateway
+
+
+  letterix_cover-letter_service:
+    image: registry.alasfood.ch/letterix_cover-letter_service:latest
+    container_name: cover-letter_service
+    restart: unless-stopped
+    depends_on:
+      - letterix_api_gateway
+    env_file:
+      - .env  
+    networks:
+      backend:
+        aliases:
+          - coverletterservice
+
+networks:
+  frontend:
+    name: frontend_network
+  backend:
+    name: backend_network
