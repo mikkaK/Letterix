@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-    - ./Letterix_API/cover-letter-service/**
+      - ./Letterix_API/cover-letter-service/**
   pull_request:
     branches:
       - main
     paths:
-    - ./Letterix_API/cover-letter-service/**
+      - ./Letterix_API/cover-letter-service/**
 env:
   REGISTRY: registry.alasfood.ch
 
