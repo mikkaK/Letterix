@@ -38,7 +38,7 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
     }
 
     @Override
-    public ChatCompletion getCoverLetter(CoverLetter coverLetter) throws JsonProcessingException {
+    public String getCoverLetter(CoverLetter coverLetter) throws JsonProcessingException {
         CoverLetter savedCoverLetter = saveCoverLetter(coverLetter);
 
         String prompt = buildPrompt(coverLetter);
@@ -69,7 +69,8 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false).configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         ChatCompletion completion = mapper.readValue(response.getBody(), ChatCompletion.class);
         completion.setCoverLetter(savedCoverLetter);
-        return chatCompletionService.save(completion);
+        chatCompletionService.save(completion);
+        return response.getBody();
     }
 
     public CoverLetter saveCoverLetter (CoverLetter coverLetter){
