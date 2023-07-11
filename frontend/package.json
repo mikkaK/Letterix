@@ -10,7 +10,6 @@
     "@mui/material": "^5.10.7",
     "@mui/styles": "^5.10.7",
     "@mui/x-data-grid": "^5.17.23",
-    "@react-native-clipboard/clipboard": "^1.11.2",
     "@types/jest": "^27.5.2",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^16.11.62",
@@ -44,7 +43,7 @@
     "yup": "^0.27.0"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "PORT=3141 react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -53,13 +52,6 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
     ]
   },
   "devDependencies": {
@@ -80,5 +72,17 @@
     "fallback": {
       "crypto": "require.resolve('crypto-js')"
     }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

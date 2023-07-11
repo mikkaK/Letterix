@@ -20,7 +20,7 @@ public class CoverLetterController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ChatCompletion> newCoverLetter(@Valid @RequestBody CoverLetter coverLetter) throws JsonProcessingException {
+    public ResponseEntity<String> newCoverLetter(@Valid @RequestBody CoverLetter coverLetter) throws JsonProcessingException {
         return new ResponseEntity<>(coverLetterService.getCoverLetter(coverLetter), HttpStatus.CREATED);
     }
 }

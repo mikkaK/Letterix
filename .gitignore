@@ -39,4 +39,4 @@ Letterix_API/config-server/.env
 *.eslintcache
 *.jpb
 */build/*
-*/db_data/*
+db_data/*

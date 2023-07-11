@@ -6,5 +6,5 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface CoverLetterService extends AbstractService<CoverLetter> {
 
-    ChatCompletion getCoverLetter(CoverLetter coverLetter) throws JsonProcessingException;
+    String getCoverLetter(CoverLetter coverLetter) throws JsonProcessingException;
 }
