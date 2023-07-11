@@ -6,6 +6,7 @@ import GeneralBox from "../../molecules/GeneralBox";
 import CoverLetterService from "../../../Services/CoverLetterService";
 
 
+
 export const initialCoverLetterValues: any = {
     id: '',
     name: '',
@@ -31,8 +32,6 @@ const CoverLetter = () => {
             CoverLetterService.addCoverLetter(coverLetter).then((res) => {
                 navigate("/generatedCoverLetter/"+res.toString());
 
-            }).catch((res) => {
-                alert("Check your Inputs");
             });
         },
     });
