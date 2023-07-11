@@ -21,7 +21,7 @@ const Router = () => {
             element={<CreateCoverLetter/>}
         />
         <Route
-            path={"/generatedCoverLetter/:chatGptResponse"}
+            path={"/generatedCoverLetter"}
             element={<GeneratedCoverLetterPage/>}
         />
 
