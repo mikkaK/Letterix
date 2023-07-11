@@ -55,7 +55,6 @@ public class CoverLetterServiceImpl extends AbstractServiceImpl<CoverLetter> imp
 
         headers.set("Authorization", "Bearer " + OPENAI_API_KEY);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
         String requestJson = "{\"model\":\"gpt-3.5-turbo\",\"messages\":[{\"role\":\"user\",\"content\":\""+ prompt +"\"}]}";
 
         HttpEntity<?> request = new HttpEntity<>(requestJson, headers);
