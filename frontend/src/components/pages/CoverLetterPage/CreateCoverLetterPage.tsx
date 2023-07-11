@@ -30,7 +30,9 @@ const CoverLetter = () => {
             coverLetter.weaknesses =values.weaknesses.split(',');
             coverLetter.interests = values.interests.split(',');
             CoverLetterService.addCoverLetter(coverLetter).then((res) => {
-                navigate("/generatedCoverLetter/"+res.toString());
+
+                const encodedData = encodeURIComponent(JSON.stringify(res));
+                navigate(`/generatedCoverLetter?data=${encodedData}`);
             });
         },
     });
