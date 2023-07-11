@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 const CoverLetter = ({decodedObject}: any) => {
     const navigate = useNavigate();
-    const content = decodedObject.choices[0].message.content;
+    const content = decodedObject;
 
     return (
         <>

@@ -11,7 +11,10 @@ const GeneralBox = ({content , title}: any) => {
                 <h1 style={{color: '#05386B'}}>
                     {title}
                 </h1>
+                <Box>
                     {content}
+                </Box>
+
             </div>
         </Box>
     );
