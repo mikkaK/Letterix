@@ -8,14 +8,12 @@ const GeneralBox = ({content , title}: any) => {
             boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)", justifySelf:"center",
             background: "linear-gradient(70deg, #F1F9E8, #D6FEFD)"}}>
             <div>
-                <h1 style={{color: "#05386B"}}>
+                <h1 style={{color: '#05386B'}}>
                     {title}
                 </h1>
                     {content}
-
             </div>
         </Box>
     );
 };
-
 export default GeneralBox;
