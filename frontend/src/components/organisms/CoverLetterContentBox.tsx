@@ -8,7 +8,6 @@ const CoverLetter = ({decodedObject}: any) => {
     return (
         <>
             <Box sx={{backgroundColor: "white", borderRadius: "3%", padding: 4}}>
-                <Button variant="contained" size="small" onClick={() => navigate("/")} sx={{ float: "right",padding: 1, marginTop: 0}} >Download?</Button>
                 <p style={{marginTop: "3rem"}}>{content}</p>
             </Box>
             <div style={{display: "flex", justifyContent: "flex-start", marginTop: "2rem"}}>
