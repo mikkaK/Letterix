@@ -10,12 +10,12 @@ on:
     branches:
       - main
     paths:
-      - ./Letterix_API/api-gateway/**
+      - Letterix_API/api-gateway/**
   pull_request:
     branches:
       - main
     paths:
-      - ./Letterix_API/api-gateway/**
+      - Letterix_API/api-gateway/**
 env:
   REGISTRY: registry.alasfood.ch
 
