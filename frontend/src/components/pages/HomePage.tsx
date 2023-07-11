@@ -1,4 +1,4 @@
-import { Box, flexbox } from '@mui/system';
+import { Box } from '@mui/system';
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import './ClickableText.css';

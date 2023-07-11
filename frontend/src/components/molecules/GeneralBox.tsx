@@ -1,5 +1,4 @@
 import {Box} from "@mui/material";
-import {useNavigate} from "react-router-dom";
 
 
 const GeneralBox = ({content , title}: any) => {
