@@ -4,7 +4,6 @@ import {useNavigate} from "react-router-dom";
 import CoverLetterForm from "../../organisms/CoverLetterForm";
 import GeneralBox from "../../molecules/GeneralBox";
 import CoverLetterService from "../../../Services/CoverLetterService";
-import * as Yup from 'yup';
 
 
 export const initialCoverLetterValues: any = {
