@@ -31,6 +31,7 @@ const CoverLetter = () => {
             coverLetter.interests = values.interests.split(',');
             CoverLetterService.addCoverLetter(coverLetter).then((res) => {
                 navigate("/generatedCoverLetter/"+res);
+                
             });
         },
     });
