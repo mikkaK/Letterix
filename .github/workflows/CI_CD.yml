@@ -86,12 +86,18 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: build
-          path: build/
+          path: ./frontend/build/
           
       - name: Build the frontend image
         working-directory: ./frontend
         run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/letterix_frontend:latest 
-        
+      - name: Docker Login
+        uses: docker/login-action@v2.2.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
       - name: Push frontend
         if: github.event_name != 'pull_request'
         run: docker push ${{ env.REGISTRY }}/letterix_frontend:latest
