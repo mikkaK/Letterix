@@ -20,34 +20,10 @@ export const initialCoverLetterValues: any = {
     weaknesses: '',
 };
 
-const validationSchema = Yup.object({
-    id: Yup.string()
-        .required('ID is required'),
-    name: Yup.string()
-        .required('Name is required'),
-    surname: Yup.string()
-        .required('Surname is required'),
-    age: Yup.string()
-        .required('Age is required'),
-    appliedCompany: Yup.string()
-        .required('Applied Company is required'),
-    position: Yup.string()
-        .required('Position is required'),
-    currentEducationLevel: Yup.string()
-        .required('Current Education Level is required'),
-    skills: Yup.string()
-        .required('Skills are required'),
-    interests: Yup.string()
-        .required('Interests are required'),
-    weaknesses: Yup.string()
-        .required('Weaknesses are required'),
-});
-
 const CoverLetter = () => {
     const navigate = useNavigate();
     const formik = useFormik({
         initialValues: initialCoverLetterValues,
-        validationSchema: validationSchema,
         onSubmit: (values) => {
             const coverLetter = values as CoverLetterModel;
             coverLetter.skills = values.skills.split(',');
